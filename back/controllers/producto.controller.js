@@ -1,12 +1,12 @@
 "use strict";
-const Suministro = require("../models/Suministro");
+const Producto = require("../models/Producto");
 
 exports.new = async (req, res) => {
     try {
-        let suministro;
-        suministro = new Suministro(req.body);
-        await suministro.save();
-        res.send(suministro);
+        let producto;
+        producto = new Producto(req.body);
+        await producto.save();
+        res.send(producto);
     } catch (error) {
         console.log(error);
         res.status(500).send("Hubo un error");
@@ -15,8 +15,8 @@ exports.new = async (req, res) => {
 
 exports.getAll = async (req, res) => {
     try {
-        const suministros = await Suministro.find();
-        res.json(suministros);
+        const producto = await Producto.find();
+        res.json(producto);
     } catch (error) {
         console.log(error);
         res.status(500).send("Hubo un error");
@@ -26,13 +26,13 @@ exports.getAll = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const { numero } = req.body;
-        let suministro = await Suministro.findById(req.params.id);
-        if (!suministro) {
+        let producto = await Producto.findById(req.params.id);
+        if (!producto) {
             res.status(404).json({msg: 'no existe el suministro'});
         }
-        suministro.numero = numero;
-        suministro = await Suministro.findOneAndUpdate({ _id: req.params.id}, suministro, {new: true});
-        res.json(suministro);
+        producto.numero = numero;
+        producto = await Producto.findOneAndUpdate({ _id: req.params.id}, producto, {new: true});
+        res.json(producto);
     } catch (error) {
         console.log(error);
         res.status(500).send("Hubo un error");
@@ -41,11 +41,11 @@ exports.update = async (req, res) => {
 
 exports.get = async (req, res) => {
     try {
-        let suministro = await Suministro.findById(req.params.id);
-        if (!suministro) {
+        let producto = await Producto.findById(req.params.id);
+        if (!producto) {
             res.status(404).json({msg: 'no existe el suministro'});
         }
-        res.json(suministro);
+        res.json(producto);
     } catch (error) {
         console.log(error);
         res.status(500).send("Hubo un error");
@@ -54,11 +54,11 @@ exports.get = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        let suministro = await Suministro.findById(req.params.id);
-        if(!suministro){
+        let producto = await Producto.findById(req.params.id);
+        if(!producto){
             res.status(404).json({msg: 'no existe el suministro'});
         }
-        await Suministro.findOneAndRemove({_id: req.params.id});
+        await Producto.findOneAndRemove({_id: req.params.id});
         res.json({msg: 'Suministro eliminado con exito'});
     } catch (error) {
         console.log(error);
